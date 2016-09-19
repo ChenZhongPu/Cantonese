@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">粤语字典</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">设置</string>
+    <string name="set_str">设置</string>
+    <string name="feedback_str">反馈</string>
+    <string name="star_str">标星词汇</string>
+    <string name="phonetic_str">粤语拼音学习</string>
+    <string name="pinyin_str">粤语拼音输入</string>
+
+    <string name="input_hint">输入查询的字符</string>
+
+    <string name="not_big5">不是繁体中文字符</string>
+    <string name="network_err">请检查网络连接</string>
+
+    <string name="cache">开启缓存</string>
+    <string name="cache_summary">自动缓存标星词汇</string>
+    
+    <string name="private_send">匿名提交</string>
+    <string name="private_summary">匿名提交使用数据,帮助我们做得更好</string>
+
+</resources>

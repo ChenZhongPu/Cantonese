@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardBackgroundColor="#FFFF"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_volume_up_black_24dp"
+            android:id="@+id/word_audio"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="15dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="音節: "
+            android:id="@+id/yinjie_str"
+            android:paddingTop="20dp"
+            android:textColor="#444"
+            android:textSize="20sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/yinjie_str"
+            android:layout_toRightOf="@id/yinjie_str"
+            android:text="oi3"
+            android:id="@+id/yinjie_mean"
+            android:paddingTop="20dp"
+            android:textColor="#444"
+            android:textSize="20sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="詞例(解釋): "
+            android:id="@+id/mean_str"
+            android:layout_below="@id/yinjie_str"
+            android:paddingTop="20dp"
+            android:textColor="#444"
+            android:textSize="20sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/yinjie_str"
+            android:layout_toEndOf="@id/mean_str"
+            android:layout_toRightOf="@id/mean_str"
+            android:text="愛心, 愛情, 愛護"
+            android:id="@+id/mean_text"
+            android:paddingTop="20dp"
+            android:textColor="#444"
+            android:textSize="20sp"
+            />
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

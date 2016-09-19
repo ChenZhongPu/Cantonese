@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Cantonese</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="set_str">Setting</string>
+    <string name="feedback_str">Feedback</string>
+    <string name="star_str">Star</string>
+    <string name="phonetic_str">Phonetic Learning</string>
+    <string name="pinyin_str">Pinyin</string>
+
+    <string name="input_hint">Input the character to search</string>
+
+    <string name="not_big5">Not Traditional Chinese Character</string>
+    <string name="network_err">Please check network connection</string>
+
+    <string name="night">Night Mode</string>
+</resources>

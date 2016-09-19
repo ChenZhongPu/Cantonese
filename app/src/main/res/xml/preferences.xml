@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="pref_cache"
+        android:title="@string/cache"
+        android:summary="@string/cache_summary"
+        android:defaultValue="true" />
+
+    <CheckBoxPreference
+        android:key="pref_prive"
+        android:title="@string/private_send"
+        android:summary="@string/private_summary"
+        android:defaultValue="true" />
+
+</PreferenceScreen>

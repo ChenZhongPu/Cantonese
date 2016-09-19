@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_star"
+            android:icon="@drawable/ic_stars_black_24dp"
+            android:title="@string/star_str" />
+        <item android:id="@+id/nav_phonetic"
+            android:icon="@drawable/ic_mic_none_black_24dp"
+            android:title="@string/phonetic_str" />
+        <item android:id="@+id/nav_pinyin"
+            android:icon="@drawable/ic_sort_by_alpha_black_24dp"
+            android:title="@string/pinyin_str" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/set_str" />
+        <item
+            android:id="@+id/nav_feekback"
+            android:icon="@drawable/ic_menu_send"
+            android:title="@string/feedback_str" />
+    </group>
+
+
+</menu>

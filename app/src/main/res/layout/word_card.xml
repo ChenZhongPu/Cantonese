@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/word_card_view"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardBackgroundColor="@color/colorPrimary"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        >
+        <TextView
+            android:id="@+id/word_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="粵"
+            android:textColor="#fff"
+            android:textSize="44sp"
+            />
+
+        <ToggleButton
+            android:id="@+id/word_star"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/check_star"
+            android:textOn=""
+            android:textOff=""
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="倉頡碼: "
+            android:id="@+id/canjie_str"
+            android:layout_below="@id/word_text"
+            android:paddingTop="4dp"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/word_text"
+            android:layout_toEndOf="@id/canjie_str"
+            android:layout_toRightOf="@id/canjie_str"
+            android:text="月月心水"
+            android:id="@+id/canjie_mean"
+            android:paddingTop="4dp"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="英譯: "
+            android:id="@+id/english_str"
+            android:layout_below="@id/canjie_str"
+            android:paddingTop="4dp"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/canjie_str"
+            android:layout_toEndOf="@id/english_str"
+            android:layout_toRightOf="@id/english_str"
+            android:text="love, be fond of, like"
+            android:id="@+id/english_mean"
+            android:paddingTop="4dp"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            />
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
