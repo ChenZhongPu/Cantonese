@@ -1,10 +1,8 @@
 package com.sjtu.chenzhongpu.cantonese;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -28,23 +26,15 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.sjtu.chenzhongpu.cantonese.sql.WordDao;
 import com.sjtu.chenzhongpu.cantonese.sql.WordDbHelper;
-import com.sjtu.chenzhongpu.cantonese.sql.WordItem;
 import com.wang.avi.AVLoadingIndicatorView;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TextView.OnEditorActionListener {
@@ -57,7 +47,6 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView.LayoutManager mLayoutManager;
 
     private WordDbHelper mDBHelper;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +84,7 @@ public class MainActivity extends AppCompatActivity
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mDBHelper = new WordDbHelper(searchText.getContext());
+
     }
 
     @Override
@@ -120,11 +110,13 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_star) {
-
+            Intent intent = new Intent(this, StarsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_phonetic) {
 
         } else if (id == R.id.nav_pinyin) {
-
+            Intent intent = new Intent(this, PinyinInputActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_setting) {
             Intent intent = new Intent(this, SettingActivity.class);
             startActivity(intent);
@@ -176,39 +168,30 @@ public class MainActivity extends AppCompatActivity
     class FetchHtmlTask extends AsyncTask<String, Void, WordBean> {
 
         protected WordBean doInBackground(String... urls){
-            String big5 = urls[0];
-            String query = urls[1];
-            String url = "http://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/search.php?q=%" + big5.substring(0, 2) + "%" + big5.substring(2, 4);
-            WordBean wordBean = new WordBean();
-            wordBean.setBig5(big5);
-            wordBean.setWord(query);
-            try {
-                Document doc  = Jsoup.connect(url).get();
-                wordBean.setCanjie(doc.select("tr").get(1).select("td").get(3).text());
-                wordBean.setEnglish(doc.select("table").get(3).select("tr").get(1).select("td").get(3).text());
 
-                List<WordMean> wordMeanList = new ArrayList<>();
+            // look up in cache first
+            SQLiteDatabase db = mDBHelper.getWritableDatabase();
 
-                Elements elements = doc.select("table").get(1).select("tr");
-                for (int i = 1; i < elements.size(); i++) {
-                    WordMean wordMean = new WordMean();
-                    wordMean.setPronunce(elements.get(i).select("td").get(0).text());
-                    String means = elements.get(i).select("td").get(5).text();
-                    int _index = means.indexOf("[");
-                    if (_index != -1)
-                        wordMean.setMean(means.substring(0, _index));
-                    else
-                        wordMean.setMean(means);
-                    wordMeanList.add(wordMean);
+            WordBean wordBean = WordDao.queryWord(db, urls[0]);
+            db.close();
+
+            if (wordBean != null) {
+                // star (must store big5, word)
+                if (wordBean.getCanjie() == null) {
+                    // but, not cached all, we should still fetch word from web
+                    WordBean wordBean2 = Utils.getWordBeanFromWeb(urls[0], urls[1]);
+                    if (wordBean2 != null) wordBean2.setStar(true);
+                    return wordBean2;
+                } else {
+                    wordBean.setStar(true);
+                    return wordBean;
                 }
-
-                wordBean.setWordMeenList(wordMeanList);
-
-            } catch (IOException e) {
-                return null;
+            } else {
+                // not star
+                WordBean wordBean2 = Utils.getWordBeanFromWeb(urls[0], urls[1]);
+                if (wordBean2 != null) wordBean2.setStar(false);
+                return wordBean2;
             }
-
-            return wordBean;
         }
 
         protected void onPostExecute(final WordBean wordBean) {
@@ -227,13 +210,15 @@ public class MainActivity extends AppCompatActivity
                     cardView = (CardView) inflater.inflate(R.layout.word_card, null);
                     cardView.setLayoutParams(lp);
                     RelativeLayout content_layout = (RelativeLayout) findViewById(R.id.content_layout);
-                    content_layout.addView(cardView, 1);
+                    content_layout.addView(cardView, 0);
                 } else {
                     cardView = (CardView) findViewById(R.id.word_card_view);
                 }
                 ((TextView) cardView.findViewById(R.id.word_text)).setText(wordBean.getWord());
                 ((TextView) cardView.findViewById(R.id.canjie_mean)).setText(wordBean.getCanjie());
                 ((TextView) cardView.findViewById(R.id.english_mean)).setText(wordBean.getEnglish());
+                ToggleButton startToggle = (ToggleButton) cardView.findViewById(R.id.word_star);
+                startToggle.setChecked(wordBean.isStar());
 
                 cardView.findViewById(R.id.word_star).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -243,26 +228,12 @@ public class MainActivity extends AppCompatActivity
                         boolean shall_cache = prefs.getBoolean("pref_cache", true);
                         SQLiteDatabase db = mDBHelper.getWritableDatabase();
                         if (starToggle.isChecked()) {
-                            // first store {big5, word}
-                            ContentValues values = new ContentValues();
-                            values.put(WordItem.WordEntry.COLUMN_BIG5, wordBean.getBig5());
-                            values.put(WordItem.WordEntry.COLUMN_CHRACTER, wordBean.getWord());
-                            db.insert(WordItem.WordEntry.TABLE_NAME, "null", values);
-//                            System.out.println("write ok ...");
-//                            String[] proj = {WordItem.WordEntry.COLUMN_BIG5, WordItem.WordEntry.COLUMN_CHRACTER};
-//                            String[] selectArgs = {"A741"};
-//                            Cursor cursor = db.query(WordItem.WordEntry.TABLE_NAME, proj, WordItem.WordEntry.COLUMN_BIG5 + " = ?", selectArgs, null, null, null);
-//                            cursor.moveToFirst();
-//                            System.out.println("big5 =  " + cursor.getString(0));
-                            if (shall_cache) {
-                                // then store {big 5, canjie, english}
-                                // and, [{big5, pronunce1, meaning1, sound1}, {big5, pronunce2, meaning2, sound2}]
-
-                            }
+                            WordDao.insertWord(db, wordBean, searchText.getContext(), shall_cache);
                         } else {
                             // remove them if stored before
-//                            db.delete()
+                            WordDao.deleteWord(db, wordBean, searchText.getContext());
                         }
+                        db.close();
                     }
                 });
 

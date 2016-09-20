@@ -33,9 +33,12 @@
         app:indicatorName="BallPulseIndicator"
         android:layout_below="@id/search_text"
         android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
         android:visibility="gone"
-        app:indicatorColor="#4CAF50"
-    />
+        android:gravity="center"
+        app:indicatorColor="#e92e50"
+        />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/word_recycler_view"
@@ -44,5 +47,6 @@
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
 
 </RelativeLayout>

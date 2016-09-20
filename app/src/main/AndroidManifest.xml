@@ -21,10 +21,37 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingActivity"
+        <activity
+            android:name=".SettingActivity"
             android:label="@string/set_str"
-            android:parentActivityName="com.sjtu.chenzhongpu.cantonese.MainActivity"
-            ></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".StarsActivity"
+            android:label="@string/title_activity_stars"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sjtu.chenzhongpu.cantonese.MainActivity" />
+        </activity>
+        <activity
+            android:name=".StarDetailActivity"
+            android:label="@string/title_activity_star_detail"
+            android:parentActivityName=".StarsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sjtu.chenzhongpu.cantonese.StarsActivity" />
+        </activity>
+        <activity
+            android:name=".PinyinInputActivity"
+            android:label="@string/title_activity_pinyin_input"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sjtu.chenzhongpu.cantonese.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

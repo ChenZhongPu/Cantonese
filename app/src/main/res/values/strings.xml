@@ -18,8 +18,11 @@
 
     <string name="cache">开启缓存</string>
     <string name="cache_summary">自动缓存标星词汇</string>
-    
+
     <string name="private_send">匿名提交</string>
     <string name="private_summary">匿名提交使用数据,帮助我们做得更好</string>
+    <string name="title_activity_stars">标星词汇</string>
+    <string name="title_activity_star_detail">详情</string>
+    <string name="title_activity_pinyin_input">拼音输入</string>
 
 </resources>

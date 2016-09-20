@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_star_24dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/star_empy_image"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/star_empy_image"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:textAlignment="center"
+        android:text="您没有保持标星词汇, 点击字典查询页面的星标可以将其保持到这里"
+        />
+</RelativeLayout>

@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -54,18 +56,30 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         final WordMean wordMean = mWordSet.get(position);
         holder.yinJieTextView.setText(wordMean.getPronunce());
         holder.meansTextView.setText(wordMean.getMean());
         holder.soundImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "http://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/sound/" + wordMean.getPronunce() + ".wav"; // your URL here
+                String weburl = Utils.WEBURL + "sound/" + wordMean.getPronunce() + ".wav";
+                // find audio in local first
+                File audioFile = v.getContext().getFileStreamPath(wordMean.getPronunce() + ".wav");
+                boolean isCached = audioFile.exists();
+
                 MediaPlayer mediaPlayer = new MediaPlayer();
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                FileInputStream fileInputStream = null;
                 try {
-                    mediaPlayer.setDataSource(url);
+                    if (isCached) {
+                        System.out.println("found cached audio ...");
+                        fileInputStream = v.getContext().openFileInput(wordMean.getPronunce() + ".wav");
+                        mediaPlayer.setDataSource(fileInputStream.getFD());
+                        fileInputStream.close();
+                    } else {
+                        mediaPlayer.setDataSource(weburl);
+                    }
                     mediaPlayer.prepare();
                     mediaPlayer.start();
                 } catch (IOException e) {

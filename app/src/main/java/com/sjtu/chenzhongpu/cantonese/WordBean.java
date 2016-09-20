@@ -13,6 +13,8 @@ public class WordBean {
     private String english;
     private List<WordMean> wordMeenList;
 
+    private boolean isStar;
+
     public String getBig5() {
         return big5;
     }
@@ -52,27 +54,15 @@ public class WordBean {
     public void setWordMeenList(List<WordMean> wordMeenList) {
         this.wordMeenList = wordMeenList;
     }
-}
 
-
-class WordMean {
-
-    private String pronunce;
-    private String mean;
-
-    public String getPronunce() {
-        return pronunce;
+    public boolean isStar() {
+        return isStar;
     }
 
-    public void setPronunce(String pronunce) {
-        this.pronunce = pronunce;
-    }
-
-    public String getMean() {
-        return mean;
-    }
-
-    public void setMean(String mean) {
-        this.mean = mean;
+    public void setStar(boolean star) {
+        isStar = star;
     }
 }
+
+
+

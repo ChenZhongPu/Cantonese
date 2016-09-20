@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.sjtu.chenzhongpu.cantonese.StarDetailActivity"
+    tools:showIn="@layout/activity_star_detail">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/word_detail_card_view"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardBackgroundColor="@color/colorPrimary"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            >
+            <TextView
+                android:id="@+id/word_detail_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="粵"
+                android:textColor="#fff"
+                android:textSize="44sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="倉頡碼: "
+                android:id="@+id/canjie_detail_str"
+                android:layout_below="@id/word_detail_text"
+                android:paddingTop="4dp"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/word_detail_text"
+                android:layout_toEndOf="@id/canjie_detail_str"
+                android:layout_toRightOf="@id/canjie_detail_str"
+                android:text="月月心水"
+                android:id="@+id/canjie_detail_mean"
+                android:paddingTop="4dp"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="英譯: "
+                android:id="@+id/english_detail_str"
+                android:layout_below="@id/canjie_detail_str"
+                android:paddingTop="4dp"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/canjie_detail_str"
+                android:layout_toEndOf="@id/english_detail_str"
+                android:layout_toRightOf="@id/english_detail_str"
+                android:text="love, be fond of, like"
+                android:id="@+id/english_detail_mean"
+                android:paddingTop="4dp"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/word_detail_card_view"
+        android:id="@+id/star_detail_recycler_view"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+</RelativeLayout>
