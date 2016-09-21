@@ -18,13 +18,53 @@
         android:layout_height="wrap_content"/>
 
     <com.jaredrummler.materialspinner.MaterialSpinner
+        android:layout_below="@id/spinner_shen"
+        android:layout_marginTop="10dp"
         android:id="@+id/spinner_yun"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <com.jaredrummler.materialspinner.MaterialSpinner
+        android:layout_below="@id/spinner_yun"
+        android:layout_marginTop="10dp"
         android:id="@+id/spinner_diao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/getSound"
+        android:layout_below="@id/spinner_diao"
+        android:layout_marginTop="10dp"
+        android:text="获取发音"
+        android:textColor="#FFF"
+        android:background="#2b74e9"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_volume_dead"
+        android:id="@+id/sound_play"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/getSound"
+        android:layout_marginTop="15dp"
+        />
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/sound_avi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AVLoadingIndicatorView"
+        app:indicatorName="LineScaleIndicator"
+        android:layout_below="@id/sound_play"
+        android:layout_marginTop="10dp"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:gravity="center"
+        app:indicatorColor="#f75d79"
+        />
 
 </RelativeLayout>

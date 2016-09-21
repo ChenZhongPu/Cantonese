@@ -46,6 +46,7 @@ public class StarsActivity extends AppCompatActivity {
 
     }
 
+
     private void initData() {
         SQLiteDatabase db = mDBHelper.getWritableDatabase();
         List<WordBean> wordBeanList = WordDao.getAllStarBean(db);
@@ -55,7 +56,7 @@ public class StarsActivity extends AppCompatActivity {
             mRecyclerView.setAdapter(mAdapter);
         } else {
             LayoutInflater inflater = getLayoutInflater();
-            CardView cardView = (CardView) inflater.inflate(R.layout.empty_star, null);
+            RelativeLayout cardView = (RelativeLayout) inflater.inflate(R.layout.empty_star, null);
 
             RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.starts_reletive_layout);
             relativeLayout.addView(cardView);

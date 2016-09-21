@@ -11,7 +11,7 @@
     <string name="phonetic_str">粤语拼音学习</string>
     <string name="pinyin_str">粤语拼音输入</string>
 
-    <string name="input_hint">输入查询的字符</string>
+    <string name="input_hint">输入繁体字符</string>
 
     <string name="not_big5">不是繁体中文字符</string>
     <string name="network_err">请检查网络连接</string>
@@ -23,6 +23,23 @@
     <string name="private_summary">匿名提交使用数据,帮助我们做得更好</string>
     <string name="title_activity_stars">标星词汇</string>
     <string name="title_activity_star_detail">详情</string>
-    <string name="title_activity_pinyin_input">拼音输入</string>
+    <string name="title_activity_pinyin_input">粤拼输入</string>
+
+    <string name="invalid_sound">该注音无对应的字</string>
+    <string name="play_hint">点击蓝色扬声器播放发音</string>
+    <string name="title_activity_lean">学习粤拼</string>
+
+    <string name="error_play">无法播放音频</string>
+
+    <string name="empty_star_hint">您没有保存标星词汇, 点击字典查询页面的星标可以将其保存到这。</string>
+
+    <string name="about_hint">关于</string>
+
+    <string name="clear_cache_hint">清除缓存信息</string>
+
+    <string name="clear_cache_ok">缓存已被清除</string>
+
+    <string name="feedback_subject">反馈意见-粤语字典</string>
+    <string name="feedback_intent">意见反馈</string>
 
 </resources>

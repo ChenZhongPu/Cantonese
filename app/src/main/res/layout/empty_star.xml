@@ -14,9 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/star_empy_image"
+        android:layout_marginTop="40dp"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
         android:textAlignment="center"
-        android:text="您没有保持标星词汇, 点击字典查询页面的星标可以将其保持到这里"
+        android:text="@string/empty_star_hint"
         />
 </RelativeLayout>

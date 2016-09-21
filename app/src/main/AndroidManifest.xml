@@ -52,6 +52,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sjtu.chenzhongpu.cantonese.MainActivity" />
         </activity>
+        <activity
+            android:name=".LearnActivity"
+            android:label="@string/title_activity_lean"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sjtu.chenzhongpu.cantonese.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

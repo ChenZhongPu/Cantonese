@@ -66,6 +66,7 @@ public class StarsAdapter extends RecyclerView.Adapter<StarsAdapter.ViewHolder>{
                 WordDbHelper wordDbHelper = new WordDbHelper(mContext);
                 SQLiteDatabase db = wordDbHelper.getWritableDatabase();
                 WordDao.deleteWordByGig5(db, wordBean.getBig5(), mContext);
+                db.close();
                 StarsAdapter.this.notifyDataSetChanged();
             }
         });
@@ -73,10 +74,10 @@ public class StarsAdapter extends RecyclerView.Adapter<StarsAdapter.ViewHolder>{
         holder.mV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, StarDetailActivity.class);
+                Intent intent = new Intent(v.getContext(), StarDetailActivity.class);
                 intent.putExtra(Utils.BIG5_MESSAGE, wordBean.getBig5());
                 intent.putExtra(Utils.WORD_MESSAGE, wordBean.getWord());
-                mContext.startActivity(intent);
+                v.getContext().startActivity(intent);
             }
         });
     }

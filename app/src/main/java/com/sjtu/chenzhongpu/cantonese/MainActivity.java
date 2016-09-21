@@ -113,7 +113,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, StarsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_phonetic) {
-
+            Intent intent = new Intent(this, LearnActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_pinyin) {
             Intent intent = new Intent(this, PinyinInputActivity.class);
             startActivity(intent);
@@ -125,9 +126,10 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(Intent.ACTION_SENDTO,
                     Uri.fromParts("mailto", "chenloveit@gmail.com", null));
 
-            intent.putExtra(Intent.EXTRA_SUBJECT, "反馈意见-粤语字典");
+            intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.feedback_subject));
 
-            startActivity(Intent.createChooser(intent, "意见反馈"));
+
+            startActivity(Intent.createChooser(intent, getResources().getString(R.string.feedback_intent)));
 
         }
 
