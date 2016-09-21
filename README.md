@@ -15,3 +15,6 @@
 ![](screenshots/example2.jpeg)
 
 ## 下载
+
+- [酷市场](http://www.coolapk.com/apk/com.sjtu.chenzhongpu.cantonese)
+- [应用宝](http://sj.qq.com/myapp/detail.htm?apkName=com.sjtu.chenzhongpu.cantonese)
