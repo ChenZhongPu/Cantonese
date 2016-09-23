@@ -42,6 +42,7 @@ public class PinyinInputActivity extends AppCompatActivity {
 
         playSoundImage = (ImageView) findViewById(R.id.sound_play);
         avLoadingIndicatorView = (AVLoadingIndicatorView) findViewById(R.id.sound_avi);
+        avLoadingIndicatorView.hide();
 
         canPlay = false;
         lastValidShen = "j";
@@ -62,7 +63,7 @@ public class PinyinInputActivity extends AppCompatActivity {
         spinnerYun.setItems(yunItems);
 
         final MaterialSpinner spinnerDiao = (MaterialSpinner) findViewById(R.id.spinner_diao);
-        final String[] diaoItems = {"1", "2", "2", "3", "4", "5", "6"};
+        final String[] diaoItems = {"1", "2", "3", "4", "5", "6"};
         spinnerDiao.setItems(diaoItems);
 
         Button getSound = (Button) findViewById(R.id.getSound);
@@ -70,6 +71,7 @@ public class PinyinInputActivity extends AppCompatActivity {
         getSound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                avLoadingIndicatorView.hide();
                 avLoadingIndicatorView.show();
                 canPlay = false;
 

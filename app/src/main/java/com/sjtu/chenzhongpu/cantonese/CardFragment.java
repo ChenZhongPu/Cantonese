@@ -34,11 +34,11 @@ public class CardFragment extends Fragment {
 
     private static final String ARG_POSITION = "position";
 
-    private SoundBean[] shenArray = {new SoundBean("b 波", R.raw.b0), new SoundBean("p 婆", R.raw.p0), new SoundBean("m 摸", R.raw.m0), new SoundBean("f 科", R.raw.f0),
+    private SoundBean[] shenArray = {new SoundBean("b 波", R.raw.b0), new SoundBean("p 婆", R.raw.p0), new SoundBean("m 唔", R.raw.m0), new SoundBean("f 科", R.raw.f0),
             new SoundBean("d 多", R.raw.d0), new SoundBean("t 拖", R.raw.t0), new SoundBean("n 挪", R.raw.n0), new SoundBean("l 啰", R.raw.l0),
             new SoundBean("g 家", R.raw.g0), new SoundBean("k 卡", R.raw.k0), new SoundBean("h 哈", R.raw.h0), new SoundBean("ng 牙", R.raw.ngaa0),
             new SoundBean("z 支", R.raw.z0), new SoundBean("c 雌", R.raw.c0), new SoundBean("s 思", R.raw.s0), new SoundBean("j 衣", R.raw.j0),
-            new SoundBean("gw 瓜", R.raw.gw0), new SoundBean("kw 夸", R.raw.kw0), new SoundBean("w 娃", R.raw.s0)
+            new SoundBean("gw 瓜", R.raw.gw0), new SoundBean("kw 夸", R.raw.kw0), new SoundBean("w 娃", R.raw.w0)
     };
 
     private SoundBean[] yunArray = {new SoundBean("aa 丫", R.raw.aa0), new SoundBean("aai 挨", R.raw.aai0), new SoundBean("aau 坳", R.raw.aau0),
