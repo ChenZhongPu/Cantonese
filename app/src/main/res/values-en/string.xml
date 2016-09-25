@@ -11,7 +11,7 @@
     <string name="phonetic_str">Phonetic Learning</string>
     <string name="pinyin_str">Pinyin</string>
 
-    <string name="input_hint">Input the traditional Chinnese</string>
+    <string name="input_hint">Input Chinnese character</string>
 
     <string name="not_big5">Not Traditional Chinese Character</string>
     <string name="network_err">Please check network connection</string>
@@ -41,4 +41,6 @@
 
     <string name="feedback_subject">Feekback-Cantonese</string>
     <string name="feedback_intent">Feekbacks</string>
+
+    <string name="invalid_char">Sorry, vocabulary does not include this</string>
 </resources>

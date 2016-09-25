@@ -13,6 +13,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.view.KeyEvent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,6 +24,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -35,6 +37,8 @@ import com.sjtu.chenzhongpu.cantonese.sql.WordDbHelper;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TextView.OnEditorActionListener {
@@ -43,8 +47,15 @@ public class MainActivity extends AppCompatActivity
     AVLoadingIndicatorView avi;
 
     private RecyclerView mRecyclerView;
+
+    private RecyclerView mMultiChoiceRV;
+
     private RecyclerView.Adapter mAdapter;
+    private RecyclerView.Adapter mAdapter2;
+
     private RecyclerView.LayoutManager mLayoutManager;
+
+    private RecyclerView.LayoutManager mLayoutManager2;
 
     private WordDbHelper mDBHelper;
 
@@ -80,10 +91,23 @@ public class MainActivity extends AppCompatActivity
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.word_recycler_view);
+        mMultiChoiceRV =(RecyclerView) findViewById(R.id.multi_choices);
+
         mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager2 = new LinearLayoutManager(this);
+
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        mMultiChoiceRV.setLayoutManager(mLayoutManager2);
+
         mDBHelper = new WordDbHelper(searchText.getContext());
+
+        mAdapter = new WordAdapter(new ArrayList<WordMean>());
+        mAdapter2 = new ChoiceAdapter(new ArrayList<String>(), this);
+
+        mRecyclerView.setAdapter(mAdapter);
+        mMultiChoiceRV.setAdapter(mAdapter2);
+
 
     }
 
@@ -145,24 +169,54 @@ public class MainActivity extends AppCompatActivity
         in.hideSoftInputFromWindow(searchText.getWindowToken(), 0);
         if (v.getId() == R.id.search_text && actionId == EditorInfo.IME_ACTION_SEARCH) {
             String query = searchText.getText().toString();
-            if (!TextUtils.isEmpty(query))
-               performSeach(query);
+            if (!TextUtils.isEmpty(query)) {
+                performSeach(query);
+            }
             return true;
         }
         return false;
     }
 
     private void performSeach(String query) {
+
+        // first check if it is simplify Chinese
+        if (SimpleTraditionMap.oneToMultiMap.containsKey(query)) {
+
+            mAdapter = new WordAdapter(new ArrayList<WordMean>());
+            mRecyclerView.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+
+            if (findViewById(R.id.word_card_view) != null) {
+                CardView _card = (CardView) findViewById(R.id.word_card_view);
+                ((ViewManager)_card.getParent()).removeView(_card);
+            }
+
+            // one (simplify Chinese) to multi
+            // display the view to let user to choose
+            mAdapter2 = new ChoiceAdapter(SimpleTraditionMap.oneToMultiMap.get(query), this);
+            mMultiChoiceRV.setAdapter(mAdapter2);
+            mAdapter2.notifyDataSetChanged();
+        } else if (SimpleTraditionMap.simTraMap.containsKey(query)){
+            // one (simplify Chinese) to one
+            performTraditionalQuery(SimpleTraditionMap.simTraMap.get(query));
+        } else {
+            performTraditionalQuery(query);
+        }
+
+    }
+
+    public void performTraditionalQuery(String query) {
+        mAdapter2 = new ChoiceAdapter(new ArrayList<String>(), this);
+        mMultiChoiceRV.setAdapter(mAdapter2);
+        mAdapter2.notifyDataSetChanged();
+        // query char must be a Traditional char
         try {
-            String big5Query = Utils.getBig5FromString(query);
-
             avi.show();
-
+            String big5Query = Utils.getBig5FromString(query);
             new FetchHtmlTask().execute(big5Query, query);
-
         } catch (UnsupportedEncodingException e) {
-            Snackbar.make(this.findViewById(R.id.search_text).getRootView(), R.string.not_big5, Snackbar.LENGTH_SHORT)
-                    .setDuration(2000).show();
+            avi.hide();
+            Snackbar.make(searchText.getRootView(), R.string.invalid_char, Snackbar.LENGTH_LONG).show();
         }
 
     }
@@ -219,6 +273,7 @@ public class MainActivity extends AppCompatActivity
                 ((TextView) cardView.findViewById(R.id.word_text)).setText(wordBean.getWord());
                 ((TextView) cardView.findViewById(R.id.canjie_mean)).setText(wordBean.getCanjie());
                 ((TextView) cardView.findViewById(R.id.english_mean)).setText(wordBean.getEnglish());
+                ((TextView) cardView.findViewById(R.id.english_mean)).setMovementMethod(new ScrollingMovementMethod());
                 ToggleButton startToggle = (ToggleButton) cardView.findViewById(R.id.word_star);
                 startToggle.setChecked(wordBean.isStar());
 
@@ -238,9 +293,9 @@ public class MainActivity extends AppCompatActivity
                         db.close();
                     }
                 });
-
                 mAdapter = new WordAdapter(wordBean.getWordMeenList());
                 mRecyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
             }
         }
     }

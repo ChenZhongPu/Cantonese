@@ -39,6 +39,14 @@
         app:indicatorColor="#e92e50"
         />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/multi_choices"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/avi"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/word_recycler_view"

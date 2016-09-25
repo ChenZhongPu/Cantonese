@@ -74,6 +74,8 @@
             android:paddingTop="4dp"
             android:textColor="#fff"
             android:textSize="16sp"
+            android:maxLines = "2"
+            android:scrollbars = "vertical"
             />
         <TextView
             android:layout_width="wrap_content"

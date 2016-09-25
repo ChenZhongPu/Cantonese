@@ -11,7 +11,7 @@
     <string name="phonetic_str">粤语拼音学习</string>
     <string name="pinyin_str">粤语拼音输入</string>
 
-    <string name="input_hint">输入繁体字符</string>
+    <string name="input_hint">输入繁/简体字符</string>
 
     <string name="not_big5">不是繁体中文字符</string>
     <string name="network_err">请检查网络连接</string>
@@ -41,5 +41,7 @@
 
     <string name="feedback_subject">反馈意见-粤语字典</string>
     <string name="feedback_intent">意见反馈</string>
+
+    <string name="invalid_char">抱歉, 词库里没有收录该字</string>
 
 </resources>
