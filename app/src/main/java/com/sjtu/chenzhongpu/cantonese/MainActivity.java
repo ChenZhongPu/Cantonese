@@ -21,14 +21,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewManager;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -38,7 +36,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TextView.OnEditorActionListener {
@@ -58,6 +56,8 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView.LayoutManager mLayoutManager2;
 
     private WordDbHelper mDBHelper;
+
+    float scale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity
         mRecyclerView.setAdapter(mAdapter);
         mMultiChoiceRV.setAdapter(mAdapter2);
 
+        scale = searchText.getContext().getResources().getDisplayMetrics().density;
 
     }
 
@@ -186,11 +187,10 @@ public class MainActivity extends AppCompatActivity
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
 
-            if (findViewById(R.id.word_card_view) != null) {
-                CardView _card = (CardView) findViewById(R.id.word_card_view);
-                ((ViewManager)_card.getParent()).removeView(_card);
-            }
-
+            CardView cardView = (CardView) findViewById(R.id.word_card_view);
+            ViewGroup.LayoutParams params = cardView.getLayoutParams();
+            params.height = 0;
+            cardView.setLayoutParams(params);
             // one (simplify Chinese) to multi
             // display the view to let user to choose
             mAdapter2 = new ChoiceAdapter(SimpleTraditionMap.oneToMultiMap.get(query), this);
@@ -257,19 +257,10 @@ public class MainActivity extends AppCompatActivity
                 Snackbar.make(searchText.getRootView(), R.string.network_err, Snackbar.LENGTH_SHORT)
                     .setDuration(3000).show();
             } else {
-                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.MATCH_PARENT, 400);
-                lp.addRule(RelativeLayout.BELOW, R.id.search_text);
-                CardView cardView;
-                if (findViewById(R.id.word_card_view) == null) {
-                    LayoutInflater inflater = getLayoutInflater();
-                    cardView = (CardView) inflater.inflate(R.layout.word_card, null);
-                    cardView.setLayoutParams(lp);
-                    RelativeLayout content_layout = (RelativeLayout) findViewById(R.id.content_layout);
-                    content_layout.addView(cardView, 0);
-                } else {
-                    cardView = (CardView) findViewById(R.id.word_card_view);
-                }
+                CardView cardView = (CardView) findViewById(R.id.word_card_view);
+                ViewGroup.LayoutParams params = cardView.getLayoutParams();
+                params.height = (int)(120 * scale + 0.5f);
+                cardView.setLayoutParams(params);
                 ((TextView) cardView.findViewById(R.id.word_text)).setText(wordBean.getWord());
                 ((TextView) cardView.findViewById(R.id.canjie_mean)).setText(wordBean.getCanjie());
                 ((TextView) cardView.findViewById(R.id.english_mean)).setText(wordBean.getEnglish());

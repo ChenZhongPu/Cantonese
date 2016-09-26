@@ -68,6 +68,8 @@ public class StarsAdapter extends RecyclerView.Adapter<StarsAdapter.ViewHolder>{
                 WordDao.deleteWordByGig5(db, wordBean.getBig5(), mContext);
                 db.close();
                 StarsAdapter.this.notifyDataSetChanged();
+                (holder.startToggle).setChecked(true);
+
             }
         });
 
