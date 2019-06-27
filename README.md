@@ -16,5 +16,7 @@
 
 ## 下载
 
+请下载3.0版本，其他版本的网络有异常。
+
 - [酷市场](http://www.coolapk.com/apk/com.sjtu.chenzhongpu.cantonese)
 - [应用宝](http://sj.qq.com/myapp/detail.htm?apkName=com.sjtu.chenzhongpu.cantonese)
