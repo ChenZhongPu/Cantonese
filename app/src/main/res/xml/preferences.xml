@@ -7,6 +7,12 @@
         android:defaultValue="true" />
 
     <CheckBoxPreference
+        android:key="pref_tradition"
+        android:title="仅繁体输入"
+        android:summary="不进行内置的简->繁体转换"
+        android:defaultValue="false" />
+
+    <CheckBoxPreference
         android:key="pref_prive"
         android:title="@string/private_send"
         android:summary="@string/private_summary"

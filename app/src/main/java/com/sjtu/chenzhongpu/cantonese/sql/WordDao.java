@@ -62,7 +62,7 @@ public class WordDao {
                     Log.d("error", "error of insert");
                 }
                 // store audio in local
-                new FetchAudioTask(context).execute(wordMean.getPronunce());
+//                new FetchAudioTask(context).execute(wordMean.getPronunce());
             }
 
         }
@@ -74,14 +74,14 @@ public class WordDao {
         String[] delteArg = {wordBean.getBig5()};
         try {
             db.delete(WordItem.WordEntry.TABLE_NAME, WordItem.WordEntry.COLUMN_BIG5 + " = ?", delteArg);
-            List<WordMean> wordMeanList = wordBean.getWordMeenList();
-            if (wordMeanList != null) {
-                for (int i = 0; i < wordMeanList.size(); i++) {
-                    WordMean wordMean = wordMeanList.get(i);
-                    File file = new File (context.getFilesDir(), wordMean.getPronunce() + ".wav");
-                    file.delete();
-                }
-            }
+//            List<WordMean> wordMeanList = wordBean.getWordMeenList();
+//            if (wordMeanList != null) {
+//                for (int i = 0; i < wordMeanList.size(); i++) {
+//                    WordMean wordMean = wordMeanList.get(i);
+//                    File file = new File (context.getFilesDir(), wordMean.getPronunce() + ".wav");
+//                    file.delete();
+//                }
+//            }
         } catch (Exception e) {
             e.printStackTrace();
             Log.d("error", "error of delete");
@@ -91,14 +91,14 @@ public class WordDao {
     public static void deleteWordByGig5(SQLiteDatabase db, String big5, Context context) {
         try {
             // get all sound name
-            try (Cursor cursor = db.query(WordMeanItem.WordMeanEntry.TABLE_NAME, new String[]{WordMeanItem.WordMeanEntry.COLUMN_SOUND},
-                    "big5 = ?", new String[]{big5}, null, null, null)) {
-                while (cursor.moveToNext()) {
-                    String sound = cursor.getString(cursor.getColumnIndex(WordMeanItem.WordMeanEntry.COLUMN_SOUND));
-                    File file = new File(context.getFilesDir(), sound + ".wav");
-                    file.delete();
-                }
-            }
+//            try (Cursor cursor = db.query(WordMeanItem.WordMeanEntry.TABLE_NAME, new String[]{WordMeanItem.WordMeanEntry.COLUMN_SOUND},
+//                    "big5 = ?", new String[]{big5}, null, null, null)) {
+//                while (cursor.moveToNext()) {
+//                    String sound = cursor.getString(cursor.getColumnIndex(WordMeanItem.WordMeanEntry.COLUMN_SOUND));
+//                    File file = new File(context.getFilesDir(), sound + ".wav");
+//                    file.delete();
+//                }
+//            }
             db.delete(WordItem.WordEntry.TABLE_NAME, WordItem.WordEntry.COLUMN_BIG5 + " = ?", new String[]{big5});
 
         } catch (Exception e) {

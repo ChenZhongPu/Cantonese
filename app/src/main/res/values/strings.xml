@@ -43,5 +43,6 @@
     <string name="feedback_intent">意见反馈</string>
 
     <string name="invalid_char">抱歉, 词库里没有收录该字</string>
+    <string name="title_activity_reco">推荐</string>
 
 </resources>

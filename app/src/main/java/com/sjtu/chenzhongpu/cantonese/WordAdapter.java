@@ -2,6 +2,7 @@ package com.sjtu.chenzhongpu.cantonese;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,7 +71,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
 
                 MediaPlayer mediaPlayer = new MediaPlayer();
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                FileInputStream fileInputStream = null;
+                FileInputStream fileInputStream;
                 try {
                     if (isCached) {
                         System.out.println("found cached audio ...");
@@ -84,6 +85,8 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
                     mediaPlayer.start();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    Snackbar.make(holder.soundImage, R.string.network_err, Snackbar.LENGTH_SHORT)
+                            .setDuration(3000).show();
                 }
             }
         });

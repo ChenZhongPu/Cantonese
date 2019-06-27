@@ -36,10 +36,12 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.prefs.Preferences;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TextView.OnEditorActionListener {
+
 
     private EditText searchText;
     AVLoadingIndicatorView avi;
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity
                 in.hideSoftInputFromWindow(searchText.getWindowToken(), 0);
             }
         };
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -110,6 +112,13 @@ public class MainActivity extends AppCompatActivity
 
         scale = searchText.getContext().getResources().getDisplayMetrics().density;
 
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean onlyTradition = sharedPreferences.getBoolean("pref_tradition", false);
+        if (onlyTradition) {
+            searchText.setHint("輸入繁體字");
+        }
+
     }
 
     @Override
@@ -128,7 +137,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
@@ -137,10 +145,14 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_star) {
             Intent intent = new Intent(this, StarsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_phonetic) {
-            Intent intent = new Intent(this, LearnActivity.class);
+        }
+
+        else if (id == R.id.nav_reco) {
+            Intent intent = new Intent(this, RecoActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_pinyin) {
+        }
+
+        else if (id == R.id.nav_pinyin) {
             Intent intent = new Intent(this, PinyinInputActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_setting) {
@@ -171,7 +183,7 @@ public class MainActivity extends AppCompatActivity
         if (v.getId() == R.id.search_text && actionId == EditorInfo.IME_ACTION_SEARCH) {
             String query = searchText.getText().toString();
             if (!TextUtils.isEmpty(query)) {
-                performSeach(query);
+                performSeach(query.trim());
             }
             return true;
         }
@@ -180,27 +192,33 @@ public class MainActivity extends AppCompatActivity
 
     private void performSeach(String query) {
 
-        // first check if it is simplify Chinese
-        if (SimpleTraditionMap.oneToMultiMap.containsKey(query)) {
-
-            mAdapter = new WordAdapter(new ArrayList<WordMean>());
-            mRecyclerView.setAdapter(mAdapter);
-            mAdapter.notifyDataSetChanged();
-
-            CardView cardView = (CardView) findViewById(R.id.word_card_view);
-            ViewGroup.LayoutParams params = cardView.getLayoutParams();
-            params.height = 0;
-            cardView.setLayoutParams(params);
-            // one (simplify Chinese) to multi
-            // display the view to let user to choose
-            mAdapter2 = new ChoiceAdapter(SimpleTraditionMap.oneToMultiMap.get(query), this);
-            mMultiChoiceRV.setAdapter(mAdapter2);
-            mAdapter2.notifyDataSetChanged();
-        } else if (SimpleTraditionMap.simTraMap.containsKey(query)){
-            // one (simplify Chinese) to one
-            performTraditionalQuery(SimpleTraditionMap.simTraMap.get(query));
-        } else {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean onlyTradition = sharedPreferences.getBoolean("pref_tradition", false);
+        if (onlyTradition) {
             performTraditionalQuery(query);
+        } else {
+            // first check if it is simplify Chinese
+            if (SimpleTraditionMap.oneToMultiMap.containsKey(query)) {
+
+                mAdapter = new WordAdapter(new ArrayList<WordMean>());
+                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+
+                CardView cardView = (CardView) findViewById(R.id.word_card_view);
+                ViewGroup.LayoutParams params = cardView.getLayoutParams();
+                params.height = 0;
+                cardView.setLayoutParams(params);
+                // one (simplify Chinese) to multi
+                // display the view to let user to choose
+                mAdapter2 = new ChoiceAdapter(SimpleTraditionMap.oneToMultiMap.get(query), this);
+                mMultiChoiceRV.setAdapter(mAdapter2);
+                mAdapter2.notifyDataSetChanged();
+            } else if (SimpleTraditionMap.simTraMap.containsKey(query)){
+                // one (simplify Chinese) to one
+                performTraditionalQuery(SimpleTraditionMap.simTraMap.get(query));
+            } else {
+                performTraditionalQuery(query);
+            }
         }
 
     }

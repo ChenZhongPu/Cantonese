@@ -11,7 +11,7 @@
     <string name="phonetic_str">Phonetic Learning</string>
     <string name="pinyin_str">Pinyin</string>
 
-    <string name="input_hint">Input Chinnese character</string>
+    <string name="input_hint">Input Chinese character</string>
 
     <string name="not_big5">Not Traditional Chinese Character</string>
     <string name="network_err">Please check network connection</string>
@@ -43,4 +43,5 @@
     <string name="feedback_intent">Feekbacks</string>
 
     <string name="invalid_char">Sorry, vocabulary does not include this</string>
+    <string name="title_activity_reco">Good Things</string>
 </resources>

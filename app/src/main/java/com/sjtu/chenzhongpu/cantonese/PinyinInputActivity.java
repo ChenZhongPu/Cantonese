@@ -125,7 +125,7 @@ public class PinyinInputActivity extends AppCompatActivity {
                 }
             } catch (IOException e) {
                 Log.d("error", "error of check sound");
-                return null;
+                return false;
             }
             return true;
         }

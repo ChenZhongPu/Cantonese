@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class Utils {
 
-    public static final String WEBURL = "http://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/";
+    public static final String WEBURL = "https://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/";
 
     public static final String BIG5_MESSAGE = "big5_message";
 
@@ -44,8 +44,10 @@ public class Utils {
         WordBean wordBean = new WordBean();
         wordBean.setBig5(big5);
         wordBean.setWord(word_str);
+
         try {
-            Document doc  = Jsoup.connect(url).get();
+            Document doc  = Jsoup.connect(url).referrer("https://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/left.php").get();
+            System.out.println(doc);
             wordBean.setCanjie(doc.select("tr").get(1).select("td").get(3).text());
             wordBean.setEnglish(doc.select("table").get(3).select("tr").get(1).select("td").get(3).text());
 

@@ -1,8 +1,12 @@
 package com.sjtu.chenzhongpu.cantonese;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -16,15 +20,17 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by chenzhongpu on 9/20/16.
  */
 
 class SoundBean {
-    String sound;
-    int audioID;
+    public String sound;
+    public int audioID;
     SoundBean(String s, int a) {
         sound = s;
         audioID = a;
@@ -97,9 +103,31 @@ class SoundAdapter extends BaseAdapter {
     private Context mContext;
     private List<SoundBean> mSoundBeanList;
 
+    private SoundPool mPool;
+
+    private Map<String, Integer> audioMap;
+
     public SoundAdapter(Context c, List<SoundBean> s) {
         mContext = c;
         mSoundBeanList = s;
+
+        mPool = buildPool();
+        audioMap = new HashMap<>();
+
+        for (SoundBean soundBean : s) {
+            audioMap.put(soundBean.sound, mPool.load(c, soundBean.audioID, 1));
+        }
+
+    }
+
+    private SoundPool buildPool() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return new SoundPool.Builder()
+                    .setMaxStreams(80)
+                    .build();
+        } else {
+            return new SoundPool(80, AudioManager.STREAM_MUSIC, 0);
+        }
     }
 
     public int getCount() {
@@ -115,7 +143,7 @@ class SoundAdapter extends BaseAdapter {
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
-        Button button;
+        final Button button;
 //        if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater)mContext.getSystemService
                     (Context.LAYOUT_INFLATER_SERVICE);
@@ -126,23 +154,10 @@ class SoundAdapter extends BaseAdapter {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MediaPlayer mediaPlayer = new MediaPlayer();
-                    try {
-                        AssetFileDescriptor afd = mContext.getResources().openRawResourceFd(mSoundBeanList.get(position).audioID);
-                        mediaPlayer.reset();
-                        mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getDeclaredLength());
-                        mediaPlayer.prepare();
-                        mediaPlayer.start();
-                        afd.close();
-                    } catch (Exception e) {
-                        Snackbar.make(v.getRootView(), R.string.error_play, Snackbar.LENGTH_SHORT)
-                                .setDuration(3000).show();
-                    }
+                    mPool.play(audioMap.get(button.getText()), 1.0f, 1.0f, 0, 0, 1.0f);
                 }
             });
-//        } else {
-//            button = (Button) convertView;
-//        }
+
         return button;
     }
 

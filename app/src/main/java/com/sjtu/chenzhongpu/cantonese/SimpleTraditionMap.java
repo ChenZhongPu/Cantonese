@@ -410,7 +410,6 @@ public class SimpleTraditionMap {
         simTraMap.put("书", "書");
         simTraMap.put("帅", "帥");
         simTraMap.put("双", "雙");
-        simTraMap.put("松", "鬆");
         simTraMap.put("肃", "肅");
         simTraMap.put("虽", "雖");
         simTraMap.put("随", "隨");
@@ -522,7 +521,6 @@ public class SimpleTraditionMap {
         simTraMap.put("鱼", "魚");
         simTraMap.put("御", "禦");
         simTraMap.put("吁", "籲");
-        simTraMap.put("郁", "鬱");
         simTraMap.put("与", "與");
         simTraMap.put("誉", "譽");
         simTraMap.put("屿", "嶼");
@@ -2524,7 +2522,6 @@ public class SimpleTraditionMap {
         oneToMultiMap.put("升", Arrays.asList("陞", "昇"));
         oneToMultiMap.put("苏", Arrays.asList("蘇", "囌"));
         oneToMultiMap.put("坛", Arrays.asList("壇", "罎"));
-        oneToMultiMap.put("坛", Arrays.asList("壇", "罎"));
         oneToMultiMap.put("叹", Arrays.asList("嘆", "歎"));
         oneToMultiMap.put("团", Arrays.asList("團", "糰"));
         oneToMultiMap.put("袜", Arrays.asList("襪", "韤"));
@@ -2557,6 +2554,8 @@ public class SimpleTraditionMap {
         oneToMultiMap.put("症", Arrays.asList("症", "癥"));
         oneToMultiMap.put("准", Arrays.asList("准", "準"));
         oneToMultiMap.put("弥", Arrays.asList("彌", "瀰"));
+        oneToMultiMap.put("松", Arrays.asList("松", "鬆"));
+        oneToMultiMap.put("郁", Arrays.asList("郁", "鬱"));
     }
 }
 

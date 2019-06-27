@@ -61,6 +61,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sjtu.chenzhongpu.cantonese.MainActivity" />
         </activity>
+        <activity
+            android:name=".RecoActivity"
+            android:label="@string/title_activity_reco"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sjtu.chenzhongpu.cantonese.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

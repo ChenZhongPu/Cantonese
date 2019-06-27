@@ -6,9 +6,9 @@
             android:id="@+id/nav_star"
             android:icon="@drawable/ic_stars_black_24dp"
             android:title="@string/star_str" />
-        <item android:id="@+id/nav_phonetic"
-            android:icon="@drawable/ic_mic_none_black_24dp"
-            android:title="@string/phonetic_str" />
+        <!--<item android:id="@+id/nav_phonetic"-->
+            <!--android:icon="@drawable/ic_mic_none_black_24dp"-->
+            <!--android:title="@string/phonetic_str" />-->
         <item android:id="@+id/nav_pinyin"
             android:icon="@drawable/ic_sort_by_alpha_black_24dp"
             android:title="@string/pinyin_str" />
@@ -16,6 +16,10 @@
             android:id="@+id/nav_setting"
             android:icon="@drawable/ic_settings_black_24dp"
             android:title="@string/set_str" />
+        <item
+            android:id="@+id/nav_reco"
+            android:title="推荐"
+            android:icon="@drawable/ic_thumb_up_black_24dp" />
         <item
             android:id="@+id/nav_feekback"
             android:icon="@drawable/ic_menu_send"
